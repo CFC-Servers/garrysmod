@@ -111,7 +111,7 @@ function SWEP:SecondaryAttack()
 		self:SetNextSecondaryFire( CurTime() + self:SequenceDuration() + 0.5 )
 		self.Owner:SetAnimation( PLAYER_ATTACK1 )
 
-		timer.Create( "weapon_idle" .. self:EntIndex(), self:SequenceDuration(), 1, function() if ( IsValid( self ) ) then self:SendWeaponAnim( ACT_VM_IDLE ) end end )
+		timer.Simple( self:SequenceDuration(), function() if ( IsValid( self ) ) then self:SendWeaponAnim( ACT_VM_IDLE ) end end )
 
 	else
 
@@ -124,16 +124,7 @@ end
 
 function SWEP:OnRemove()
 
-	timer.Stop( "medkit_ammo" .. self:EntIndex() )
-	timer.Stop( "weapon_idle" .. self:EntIndex() )
-
-end
-
-function SWEP:Holster()
-
-	timer.Stop( "weapon_idle" .. self:EntIndex() )
-
-	return true
+	timer.Remove( "medkit_ammo" .. self:EntIndex() )
 
 end
 
