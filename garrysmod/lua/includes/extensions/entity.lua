@@ -26,7 +26,7 @@ function meta:__index( key )
 	--
 	-- Search the entity table
 	--
-	local tab = self:GetTable()
+	local tab = meta.GetTable( self )
 	if ( tab ) then
 		local val = tab[ key ]
 		if ( val != nil ) then return val end
