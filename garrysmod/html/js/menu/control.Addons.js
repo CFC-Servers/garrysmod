@@ -218,6 +218,20 @@ function ControllerAddons( $scope, $element, $rootScope, $location )
 		if ( en != "controls" && en != "description" && en != "workshopicon" ) return;
 
 		$scope.SelectedItems[file.id] = !$scope.SelectedItems[file.id];
+		var selectedCount = Object.keys($scope.SelectedItems).filter(function(key) {
+			return $scope.SelectedItems[key];
+		}).length;
+
+		// Close settings if no more items are selected
+		if ( $scope.UGCSettingsOpen && selectedCount == 0 ) {
+			$scope.ToggleSettings();
+		}
+
+		// Open the settings if we have >1 selected
+		if ( !$scope.UGCSettingsOpen && selectedCount > 1 ) {
+			$scope.ToggleSettings();
+		}
+
 		if ( event ) event.stopPropagation();
 	}
 	$scope.EnableAllSelected = function()
